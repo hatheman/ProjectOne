@@ -20,7 +20,7 @@ $.ajax({
          p.text("Landmarks Available");
          p.css('color', 'black');
          yelp_results.append(p);
-        for(var i=0; i < 5; i++) {
+        for(var i=0; i < 4; i++) {
             var searchResults = $("<div class='row'>");
             var firstCol = $("<div class='col'>");
             var secondCol = $("<div class='col'>");
