@@ -183,7 +183,7 @@ function getPopulation(response){
                 console.log(datas2015)
                 insertChart();
                 createChart(labelsOrigin,datas, datas2015);
-              },3000);
+              },5000);
             
         })
         
