@@ -59,12 +59,10 @@ function getPopulation(response){
         wisconsin: "55",
         wyoming: "56",
         }
-
         graphContainer = $("<div>");
         graphContainer.addClass("row col-lg-8");
         graphContainer.attr('id', 'graphContainer');
         $("#questionSection").append(graphContainer);
-
         var dynamicState = fips[state]
         var URL = "https://api.census.gov/data/2016/acs/acs1?get="
         var URL2015 = "https://api.census.gov/data/2015/acs/acs1?get="
@@ -85,14 +83,12 @@ function getPopulation(response){
         var datas2015 = []
         var colors2 = []
         var borders2 = []
-
         function fillColor() {
             for (let i = 0; i < datas.length; i++) {
                 var color = "rgba(54, 162, 235, 0.2)"
                 var color2015 = "'rgba(54, 162, 235, 0.2)'"
                 colors.push(color)
                 colors2.push(color2015)
-
             }
         }
         function fillBorder() {
@@ -103,7 +99,6 @@ function getPopulation(response){
                 borders2.push(color2015)            
             }
         }
-
         function createChart(label, value, value2) {
         var ctx = $("#myChartPop");
         var myChart = new Chart(ctx, {
@@ -135,15 +130,11 @@ function getPopulation(response){
             }
         });
         }   
-
-
-
         $.ajax({
             url: urlPop,
             method: "GET",
             
           }).then(function(response) {
-
             for (let i = 1; i < response.length; i++) {
                 var data = parseInt(response[i][0])
                 datas.push(data)
@@ -153,7 +144,7 @@ function getPopulation(response){
                 countyFull.push(stateCode);             
             }
        
-
+            setTimeout(function(){
             for (let i = 0; i < countyFull.length; i++) {
                 var URL = "https://www.broadbandmap.gov/broadbandmap/county-availability/jun2014/countyids/" + countyFull[i] + "?format=json"
                 $.ajax({
@@ -164,31 +155,30 @@ function getPopulation(response){
                     labelsOrigin.push(labelName)                   
                 })
             }
-
+            },2000);
+            
             $.ajax({
                 url: urlPop2,
                 method: "GET",
             }).then(function(response) {
                console.log(response)
+               setTimeout(function(){
                for (let i= 1; i< response.length; i++) {
                 var data2015 = parseInt(response[i][0])
                 datas2015.push(data2015)                 
                } 
-            }) 
-
-
+            })
+            },3000); 
             fillColor();
             fillBorder();
             setTimeout(function(){
-                console.log(datas2015)
                 insertChart();
                 createChart(labelsOrigin,datas, datas2015);
-              },6000);
+              },4000);
             
         })
         
         }
-
         function insertChart() {
         $('.graph').remove()
         var canvas = $('<canvas>')
